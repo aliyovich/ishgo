@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://vacancyListView.title"
+      focusComponent="vacanciesDataGrid">
+    <data>
+        <collection id="vacanciesDc"
+                    class="com.changemakers.ishgo.entity.vacancy.Vacancy">
+            <fetchPlan extends="_base">
+                <property name="category" fetchPlan="_instance_name"/>
+                <property name="region" fetchPlan="_instance_name"/>
+                <property name="responsible" fetchPlan="_instance_name"/>
+                <property name="company" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="vacanciesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Vacancy e order by e.createdDate desc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="vacanciesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel" justifyContent="BETWEEN">
+            <hbox>
+                <button id="createBtn" action="vacanciesDataGrid.create"/>
+                <button id="editBtn" action="vacanciesDataGrid.edit"/>
+                <button id="refreshBtn" action="vacanciesDataGrid.refresh"/>
+                <button id="removeBtn" action="vacanciesDataGrid.remove"/>
+            </hbox>
+            <hbox>
+                <simplePagination id="pagination" dataLoader="vacanciesDl"/>
+                <gridColumnVisibility icon="vaadin:list-select" dataGrid="vacanciesDataGrid"/>
+            </hbox>
+        </hbox>
+        <dataGrid id="vacanciesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="vacanciesDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="code"/>
+                <column property="position"/>
+                <column property="category"/>
+                <column property="region"/>
+                <column property="employmentType"/>
+                <column property="salaryFrom" visible="false"/>
+                <column property="salaryTo" visible="false"/>
+                <column property="status"/>
+                <column property="responsible" visible="false"/>
+                <column property="company" visible="false"/>
+                <column property="requirement" visible="false"/>
+                <column property="createdDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

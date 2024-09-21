@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://regionDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="regionDc"
+                  class="com.changemakers.ishgo.entity.ref.Region">
+            <fetchPlan extends="_base">
+                <property name="parent" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="regionDl"/>
+        </instance>
+        <collection id="regionsDc"
+                    class="com.changemakers.ishgo.entity.ref.Region">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="regionsDl">
+                <query>
+                    <![CDATA[select e from Region e order by e.name]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="regionDc">
+            <textField id="nameField" property="name" required="true"/>
+            <textField id="shortNameField" property="shortName"/>
+            <entityComboBox id="parentField" property="parent" itemsContainer="regionsDc">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <textField id="sortField" property="sort"/>
+            <checkbox id="activeField" property="active"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

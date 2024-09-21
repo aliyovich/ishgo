@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://companyDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="companyDc"
+                  class="com.changemakers.ishgo.entity.company.Company">
+            <fetchPlan extends="_base">
+                <property name="admin" fetchPlan="_instance_name"/>
+                <property name="industry" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="companyDl"/>
+        </instance>
+        <collection id="adminDc"
+                    class="com.changemakers.ishgo.entity.User">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="adminDl">
+                <query>
+                    <![CDATA[select e from User e where e.type='EMPLOYER' order by e.firstName]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="industryDc"
+                    class="com.changemakers.ishgo.entity.company.Industry">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="industryDl">
+                <query>
+                    <![CDATA[select e from Industry e order by e.name]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="companyDc" width="40%">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+            </responsiveSteps>
+            <textField id="nameField" property="name" required="true"/>
+            <textField id="shortNameField" property="shortName"/>
+            <entityComboBox id="adminField" property="admin" itemsContainer="adminDc" required="true">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <entityComboBox id="industryField" property="industry" itemsContainer="industryDc" required="true">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <textArea id="aboutField" height="9.5em" property="about"/>
+            <textField id="phoneField" property="phone"/>
+            <textField id="emailField" property="email"/>
+            <select id="statusField" property="status" required="true"/>
+            <fileStorageUploadField id="logoField" clearButtonVisible="true" fileNameVisible="true" property="logo"/>
+            <textField id="sortField" property="sort"/>
+            <checkbox id="activeField" property="active"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

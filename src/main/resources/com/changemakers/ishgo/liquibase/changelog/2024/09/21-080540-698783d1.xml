@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="ishgo">
+        <createTable tableName="CATEGORY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_CATEGORY"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)"/>
+            <column name="SHORT_NAME" type="VARCHAR(255)"/>
+            <column name="SORT" type="INT"/>
+            <column name="ACTIVE" type="BOOLEAN"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="${offsetDateTime.type}"/>
+            <column name="ICON" type="VARCHAR(1024)"/>
+            <column name="DESCRIPTION" type="CLOB"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="ishgo">
+        <createTable tableName="COMPANY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_COMPANY"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)"/>
+            <column name="SHORT_NAME" type="VARCHAR(255)"/>
+            <column name="SORT" type="INT"/>
+            <column name="ACTIVE" type="BOOLEAN"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="${offsetDateTime.type}"/>
+            <column name="ADMIN_ID" type="UUID"/>
+            <column name="INDUSTRY_ID" type="UUID"/>
+            <column name="ABOUT" type="CLOB"/>
+            <column name="PHONE" type="VARCHAR(255)"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="LOGO" type="VARCHAR(1024)"/>
+            <column name="STATUS" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="ishgo">
+        <createTable tableName="INDUSTRY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_INDUSTRY"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)"/>
+            <column name="SHORT_NAME" type="VARCHAR(255)"/>
+            <column name="SORT" type="INT"/>
+            <column name="ACTIVE" type="BOOLEAN"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="${offsetDateTime.type}"/>
+            <column name="DESCRIPTION" type="CLOB"/>
+            <column name="ICON" type="VARCHAR(1024)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="ishgo">
+        <createTable tableName="REGION">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REGION"/>
+            </column>
+            <column name="NAME" type="VARCHAR(512)"/>
+            <column name="SHORT_NAME" type="VARCHAR(255)"/>
+            <column name="SORT" type="INT"/>
+            <column name="ACTIVE" type="BOOLEAN"/>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="${offsetDateTime.type}"/>
+            <column name="PARENT_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="5" author="ishgo">
+        <createTable tableName="VACANCY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_VACANCY"/>
+            </column>
+            <column name="CREATED_BY" type="VARCHAR(255)"/>
+            <column name="CREATED_DATE" type="${offsetDateTime.type}"/>
+            <column name="LAST_MODIFIED_BY" type="VARCHAR(255)"/>
+            <column name="LAST_MODIFIED_DATE" type="${offsetDateTime.type}"/>
+            <column name="DELETED_BY" type="VARCHAR(255)"/>
+            <column name="DELETED_DATE" type="${offsetDateTime.type}"/>
+            <column name="CODE" type="VARCHAR(255)"/>
+            <column name="POSITION_" type="VARCHAR(512)"/>
+            <column name="REQUIREMENT" type="CLOB"/>
+            <column name="CATEGORY_ID" type="UUID"/>
+            <column name="REGION_ID" type="UUID"/>
+            <column name="RESPONSIBLE_ID" type="UUID"/>
+            <column name="STATUS" type="VARCHAR(255)"/>
+            <column name="EMPLOYMENT_TYPE" type="VARCHAR(255)"/>
+            <column name="SALARY_FROM" type="DECIMAL(25, 2)"/>
+            <column name="SALARY_TO" type="DECIMAL(25, 2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="ishgo">
+        <addColumn tableName="USER_">
+            <column name="ABOUT" type="CLOB"/>
+            <column name="BIRTH_DATE" type="DATE"/>
+            <column name="GENDER" type="VARCHAR(255)"/>
+            <column name="MIDDLE_NAME" type="VARCHAR(255)"/>
+            <column name="PHONE" type="VARCHAR(255)"/>
+            <column name="PHOTO" type="VARCHAR(1024)"/>
+            <column name="REGION_ID" type="UUID"/>
+            <column name="TYPE_" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="7" author="ishgo">
+        <createIndex indexName="IDX_REGION_PARENT" tableName="REGION">
+            <column name="PARENT_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="PARENT_ID" baseTableName="REGION" constraintName="FK_REGION_ON_PARENT"
+                                 referencedColumnNames="ID" referencedTableName="REGION"/>
+    </changeSet>
+    <changeSet id="8" author="ishgo">
+        <createIndex indexName="IDX_USER__REGION" tableName="USER_">
+            <column name="REGION_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="REGION_ID" baseTableName="USER_" constraintName="FK_USER__ON_REGION"
+                                 referencedColumnNames="ID" referencedTableName="REGION"/>
+    </changeSet>
+    <changeSet id="9" author="ishgo">
+        <createIndex indexName="IDX_VACANCY_CATEGORY" tableName="VACANCY">
+            <column name="CATEGORY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="CATEGORY_ID" baseTableName="VACANCY"
+                                 constraintName="FK_VACANCY_ON_CATEGORY" referencedColumnNames="ID"
+                                 referencedTableName="CATEGORY"/>
+    </changeSet>
+    <changeSet id="10" author="ishgo">
+        <createIndex indexName="IDX_VACANCY_REGION" tableName="VACANCY">
+            <column name="REGION_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="REGION_ID" baseTableName="VACANCY"
+                                 constraintName="FK_VACANCY_ON_REGION" referencedColumnNames="ID"
+                                 referencedTableName="REGION"/>
+    </changeSet>
+    <changeSet id="11" author="ishgo">
+        <createIndex indexName="IDX_VACANCY_RESPONSIBLE" tableName="VACANCY">
+            <column name="RESPONSIBLE_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="RESPONSIBLE_ID" baseTableName="VACANCY"
+                                 constraintName="FK_VACANCY_ON_RESPONSIBLE" referencedColumnNames="ID"
+                                 referencedTableName="USER_"/>
+    </changeSet>
+    <changeSet id="12" author="ishgo">
+        <addForeignKeyConstraint baseColumnNames="ADMIN_ID" baseTableName="COMPANY" constraintName="FK_COMPANY_ON_ADMIN"
+                                 referencedColumnNames="ID" referencedTableName="USER_"/>
+    </changeSet>
+    <changeSet id="13" author="ishgo">
+        <addForeignKeyConstraint baseColumnNames="INDUSTRY_ID" baseTableName="COMPANY"
+                                 constraintName="FK_COMPANY_ON_INDUSTRY" referencedColumnNames="ID"
+                                 referencedTableName="INDUSTRY"/>
+    </changeSet>
+    <changeSet id="14" author="ishgo">
+        <dropTable cascadeConstraints="true" tableName="mten_tenant"/>
+    </changeSet>
+    <changeSet id="15" author="ishgo">
+        <dropColumn columnName="tenant" tableName="user_"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,9 @@
+/* Define your styles here */
+
+vaadin-button {
+    cursor: pointer;
+}
+
+vaadin-dialog-overlay.dialog-without-header::part(header) {
+    display: none;
+}

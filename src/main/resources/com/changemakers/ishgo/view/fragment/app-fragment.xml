@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<fragment xmlns="http://jmix.io/schema/flowui/fragment">
+    <content>
+        <hbox id="root" classNames="fr-root" width="100%">
+            <image id="logo" classNames="fr-logo"/>
+            <div id="main" width="100%" classNames="fr-main">
+                <span id="name" classNames="fr-name"/>
+                <span id="about" classNames="fr-about"/>
+            </div>
+            <div id="more" classNames="fr-more">
+                <span id="date" classNames="fr-date"/>
+                <span text="|"/>
+                <icon id="favorite" classNames="fr-favorite"
+                      icon="STAR_O" size="20px"/>
+            </div>
+        </hbox>
+    </content>
+</fragment>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://vacancyDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="vacancyDc"
+                  class="com.changemakers.ishgo.entity.vacancy.Vacancy">
+            <fetchPlan extends="_base">
+                <property name="category" fetchPlan="_instance_name"/>
+                <property name="region" fetchPlan="_instance_name"/>
+                <property name="responsible" fetchPlan="_instance_name"/>
+                <property name="company" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="vacancyDl"/>
+        </instance>
+        <collection id="categoriesDc"
+                    class="com.changemakers.ishgo.entity.vacancy.Category">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="categoriesDl">
+                <query>
+                    <![CDATA[select e from Category e order by e.name]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="regionsDc"
+                    class="com.changemakers.ishgo.entity.ref.Region">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="regionsDl">
+                <query>
+                    <![CDATA[select e from Region e order by e.name]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="responsibleDc"
+                    class="com.changemakers.ishgo.entity.User">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="responsibleDl">
+                <query>
+                    <![CDATA[select e from User e where e.type='EMPLOYER' order by e.firstName]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.company=:company</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="vacancyDc" width="40%">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+            </responsiveSteps>
+            <textField id="codeField" property="code"/>
+            <textField id="positionField" property="position"/>
+            <richTextEditor id="requirementField" height="9.5em" property="requirement"/>
+            <entityComboBox id="categoryField" property="category" itemsContainer="categoriesDc">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <entityComboBox id="regionsField" property="region" itemsContainer="regionsDc">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <select id="employmentTypeField" property="employmentType"/>
+            <bigDecimalField id="salaryFromField" property="salaryFrom"/>
+            <bigDecimalField id="salaryToField" property="salaryTo"/>
+            <select id="statusField" property="status"/>
+            <entityComboBox id="responsibleField" property="responsible" itemsContainer="responsibleDc">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <entityPicker id="companyField" property="company" readOnly="true"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

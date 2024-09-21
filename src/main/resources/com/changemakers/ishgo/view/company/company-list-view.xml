@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://companyListView.title"
+      focusComponent="companiesDataGrid">
+    <data>
+        <collection id="companiesDc"
+                    class="com.changemakers.ishgo.entity.company.Company">
+            <fetchPlan extends="_base">
+                <property name="admin" fetchPlan="_instance_name"/>
+                <property name="industry" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="companiesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Company e order by e.name]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e=:company</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="companiesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="companiesDataGrid.create"/>
+            <button id="editBtn" action="companiesDataGrid.edit"/>
+            <button id="refreshBtn" action="companiesDataGrid.refresh"/>
+            <button id="removeBtn" action="companiesDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="companiesDl"/>
+        </hbox>
+        <dataGrid id="companiesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="companiesDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create"/>
+                <action id="edit" type="list_edit"/>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="shortName"/>
+                <column property="sort"/>
+                <column property="active"/>
+                <column property="admin"/>
+                <column property="industry"/>
+                <column property="about"/>
+                <column property="phone"/>
+                <column property="email"/>
+                <column property="logo"/>
+                <column property="status"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

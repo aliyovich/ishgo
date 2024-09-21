@@ -1,0 +1,23 @@
+#RegisterView {
+    background-color: #f3f5f7;
+}
+
+#RegisterView #header {
+    font-size: var(--lumo-font-size-xxl);
+    font-weight: 600;
+    line-height: var(--lumo-line-height-xs);
+}
+
+#RegisterView #layout {
+    background-color: white;
+    padding: 24px;
+}
+
+#RegisterView #submitBtn {
+    margin-top: 16px;
+}
+
+.or-login {
+    display: flex;
+    gap: 10px;
+}

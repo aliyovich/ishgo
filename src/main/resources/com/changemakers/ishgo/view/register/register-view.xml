@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://registerView.title"
+      focusComponent="userTypeField">
+    <layout padding="false" justifyContent="CENTER" alignItems="CENTER">
+        <vbox id="layout" spacing="false" width="360px">
+            <nativeLabel id="header" text="msg://registerForm.headerTitle"/>
+            <radioButtonGroup id="userTypeField" width="100%" itemsEnum="com.changemakers.ishgo.entity.UserType"/>
+            <textField id="companyField" label="msg://company.name" width="100%"/>
+            <textField id="usernameField" label="msg://username" width="100%"/>
+            <passwordField id="passwordField" label="msg://password" width="100%"/>
+            <button id="submitBtn" text="msg://submit" themeNames="primary" width="100%"/>
+        </vbox>
+        <div classNames="or-login">
+            <span text="msg://already-registered"/>
+            <anchor href="login" text="msg://login"/>
+        </div>
+    </layout>
+</view>

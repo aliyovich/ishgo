@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://UserDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="userDc"
+                  class="com.changemakers.ishgo.entity.User">
+            <fetchPlan extends="_base">
+                <property name="region" fetchPlan="_instance_name"/>
+                <property name="company" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader/>
+        </instance>
+        <collection id="regionsDc"
+                    class="com.changemakers.ishgo.entity.ref.Region">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="regionsDl">
+                <query>
+                    <![CDATA[select e from Region e order by e.name]]>
+                </query>
+            </loader>
+        </collection>
+        <collection id="companiesDc"
+                    class="com.changemakers.ishgo.entity.company.Company">
+            <fetchPlan extends="_instance_name"/>
+            <loader id="companiesDl">
+                <query>
+                    <![CDATA[select e from Company e order by e.name]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <layout>
+        <formLayout id="form" dataContainer="userDc" width="40%">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+            </responsiveSteps>
+            <textField id="usernameField" property="username" readOnly="true"/>
+            <passwordField id="passwordField"
+                           label="msg://com.changemakers.ishgo.entity/User.password"
+                           required="true"
+                           visible="false"/>
+            <passwordField id="confirmPasswordField"
+                           label="msg://confirmPassword"
+                           required="true"
+                           visible="false"/>
+            <select id="typeField" property="type" required="true" itemsEnum="com.changemakers.ishgo.entity.UserType"/>
+            <textField id="firstNameField" property="firstName" required="true"/>
+            <textField id="lastNameField" property="lastName"/>
+            <textField id="middleNameField" property="middleName"/>
+            <entityComboBox id="regionField" property="region" itemsContainer="regionsDc">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <datePicker id="birthDateField" property="birthDate"/>
+            <select id="genderField" property="gender" itemsEnum="com.changemakers.ishgo.entity.ref.Gender"/>
+            <textField id="phoneField" property="phone"/>
+            <textField id="emailField" property="email"/>
+            <textArea id="aboutField" height="9.5em" property="about"/>
+            <fileStorageUploadField id="photoField" clearButtonVisible="true" fileNameVisible="true" property="photo"/>
+            <entityComboBox id="companyField" property="company" itemsContainer="companiesDc">
+                <actions>
+                    <action id="entityClear" type="entity_clear"/>
+                </actions>
+            </entityComboBox>
+            <comboBox id="timeZoneField" property="timeZoneId" clearButtonVisible="true"/>
+            <checkbox id="activeField" property="active"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseBtn" action="saveAction"/>
+            <button id="closeBtn" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

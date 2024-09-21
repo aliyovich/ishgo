@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<menu-config xmlns="http://jmix.io/schema/flowui/menu">
+
+    <menu id="candidate" title="msg://com.changemakers.ishgo/menu.candidate.title" opened="true">
+        <item view="AppliedCandidate.list"
+              title="msg://com.changemakers.ishgo.view.candidate.applied/appliedCandidateListView.title"/>
+        <item view="InvitedCandidate.list"
+              title="msg://com.changemakers.ishgo.view.candidate.invited/invitedCandidateListView.title"/>
+    </menu>
+
+    <menu id="vacancy" title="msg://com.changemakers.ishgo/menu.vacancy.title" opened="true">
+        <item view="Vacancy.list" title="msg://com.changemakers.ishgo.view.vacancy/vacancyListView.title"/>
+        <item view="AppView" title="msg://com.changemakers.ishgo.view.app/appView.title"/>
+    </menu>
+
+    <menu id="reference" title="msg://com.changemakers.ishgo/menu.reference.title" opened="true">
+        <item view="Region.list" title="msg://com.changemakers.ishgo.view.ref.region/regionListView.title"/>
+        <item view="Category.list" title="msg://com.changemakers.ishgo.view.ref.category/categoryListView.title"/>
+        <item view="Industry.list" title="msg://com.changemakers.ishgo.view.ref.industry/industryListView.title"/>
+    </menu>
+
+    <menu id="application" title="msg://com.changemakers.ishgo/menu.application.title" opened="true">
+        <item view="User.list" title="msg://com.changemakers.ishgo.view.user/UserListView.title"/>
+        <item view="Company.list" title="msg://com.changemakers.ishgo.view.company/companyListView.title"/>
+    </menu>
+
+</menu-config>

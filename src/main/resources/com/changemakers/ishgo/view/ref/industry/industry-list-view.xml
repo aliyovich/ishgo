@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://industryListView.title"
+      focusComponent="industriesDataGrid">
+    <data>
+        <collection id="industriesDc"
+                    class="com.changemakers.ishgo.entity.company.Industry">
+            <fetchPlan extends="_base"/>
+            <loader id="industriesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from Industry e order by e.name]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="industriesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="createBtn" action="industriesDataGrid.create"/>
+            <button id="editBtn" action="industriesDataGrid.edit"/>
+            <button id="refreshBtn" action="industriesDataGrid.refresh"/>
+            <button id="removeBtn" action="industriesDataGrid.remove"/>
+            <simplePagination id="pagination" dataLoader="industriesDl"/>
+        </hbox>
+        <dataGrid id="industriesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="industriesDc"
+                  columnReorderingAllowed="true">
+            <actions>
+                <action id="create" type="list_create">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="edit" type="list_edit">
+                    <properties>
+                        <property name="openMode" value="DIALOG"/>
+                    </properties>
+                </action>
+                <action id="refresh" type="list_refresh"/>
+                <action id="remove" type="list_remove"/>
+            </actions>
+            <columns resizable="true">
+                <column property="name"/>
+                <column property="shortName"/>
+                <column property="sort"/>
+                <column property="active"/>
+                <column property="description"/>
+                <column property="icon"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

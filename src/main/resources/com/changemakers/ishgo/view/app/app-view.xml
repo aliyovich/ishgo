@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://appView.title">
+    <actions>
+        <action id="logout" type="logout"/>
+    </actions>
+    <layout height="100%" expand="layout" padding="false">
+        <hbox id="layout" width="100%">
+            <vbox id="filterBox" height="100%" width="20%" expand="filter">
+                <hbox width="100%" justifyContent="BETWEEN" css="padding-left: 12px">
+                    <image id="logo" resource="icons/icon.png"/>
+                    <select id="localeField" itemsEnum="com.changemakers.ishgo.entity.ref.Locale"/>
+                </hbox>
+                <vbox id="filter" width="100%">
+                    <hbox id="vacancyTab" width="100%" classNames="filter-tab">
+                        <icon icon="SUITCASE"/>
+                        <span text="msg://vacancies"/>
+                    </hbox>
+                    <hbox id="categoryTab" width="100%" classNames="filter-tab">
+                        <icon icon="CUBES"/>
+                        <span text="msg://categories"/>
+                    </hbox>
+                    <hbox id="industryTab" width="100%" classNames="filter-tab">
+                        <icon icon="SHOP"/>
+                        <span text="msg://industries"/>
+                    </hbox>
+                    <hbox id="companyTab" width="100%" classNames="filter-tab">
+                        <icon icon="OFFICE"/>
+                        <span text="msg://companies"/>
+                    </hbox>
+                </vbox>
+                <button id="loginBtn" width="100%" themeNames="tertiary" text="msg://login" icon="SIGN_IN"/>
+                <hbox id="footer" width="100%" justifyContent="BETWEEN" css="padding-left: 12px">
+                    <userIndicator id="userIndicator"/>
+                    <button id="logoutBtn" action="logout"/>
+                </hbox>
+            </vbox>
+
+            <vbox id="vacanciesBox" height="100%" width="40%"/>
+
+            <vbox id="vacancyDetail" height="100%" width="40%" expand="vacancyBox">
+                <vbox id="vacancyBox" width="100%" expand="vacancyMain" visible="false">
+                    <h2 id="vacancyPosition"/>
+                    <hbox classNames="vacancy-comps" width="100%">
+                        <div classNames="vacancy-comp">
+                            <icon icon="OFFICE"/>
+                            <span id="vacancyCompany"/>
+                        </div>
+                        <div classNames="vacancy-comp">
+                            <icon icon="SHOP"/>
+                            <span id="vacancyIndustry"/>
+                        </div>
+                        <div classNames="vacancy-comp">
+                            <icon icon="LOCATION_ARROW"/>
+                            <span id="vacancyRegion"/>
+                        </div>
+                        <div classNames="vacancy-comp">
+                            <icon icon="CUBES"/>
+                            <span id="vacancyCategory"/>
+                        </div>
+                    </hbox>
+                    <hr/>
+                    <div id="vacancyMain" width="100%"/>
+                    <button id="applyBtn" text="msg://apply" alignSelf="END" themeNames="primary"/>
+                </vbox>
+            </vbox>
+        </hbox>
+    </layout>
+</view>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
+      title="msg://appliedCandidateListView.title"
+      focusComponent="appliedCandidatesDataGrid">
+    <data>
+        <collection id="appliedCandidatesDc"
+                    class="com.changemakers.ishgo.entity.candidate.AppliedCandidate">
+            <fetchPlan extends="_base">
+                <property name="candidate" fetchPlan="_instance_name"/>
+                <property name="vacancy" fetchPlan="_instance_name"/>
+            </fetchPlan>
+            <loader id="appliedCandidatesDl" readOnly="true">
+                <query>
+                    <![CDATA[select e from AppliedCandidate e order by e.createdDate desc]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <urlQueryParameters>
+            <genericFilter component="genericFilter"/>
+            <pagination component="pagination"/>
+        </urlQueryParameters>
+    </facets>
+    <actions>
+        <action id="selectAction" type="lookup_select"/>
+        <action id="discardAction" type="lookup_discard"/>
+    </actions>
+    <layout>
+        <genericFilter id="genericFilter"
+                       dataLoader="appliedCandidatesDl">
+            <properties include=".*"/>
+        </genericFilter>
+        <hbox id="buttonsPanel" classNames="buttons-panel">
+            <button id="refreshBtn" action="appliedCandidatesDataGrid.refresh"/>
+            <button id="rejectBtn" action="appliedCandidatesDataGrid.reject" themeNames="error"/>
+            <button id="acceptBtn" action="appliedCandidatesDataGrid.accept" themeNames="success"/>
+            <simplePagination id="pagination" dataLoader="appliedCandidatesDl"/>
+        </hbox>
+        <dataGrid id="appliedCandidatesDataGrid"
+                  width="100%"
+                  minHeight="20em"
+                  dataContainer="appliedCandidatesDc"
+                  columnReorderingAllowed="true"
+                  selectionMode="MULTI">
+            <actions>
+                <action id="accept" type="list_itemTracking" text="msg://accept" icon="CHECK"/>
+                <action id="reject" type="list_itemTracking" text="msg://reject" icon="CLOSE"/>
+                <action id="refresh" type="list_refresh"/>
+            </actions>
+            <columns resizable="true">
+                <column property="candidate"/>
+                <column property="vacancy"/>
+                <column property="status"/>
+                <column property="createdDate"/>
+            </columns>
+        </dataGrid>
+        <hbox id="lookupActions" visible="false">
+            <button id="selectBtn" action="selectAction"/>
+            <button id="discardBtn" action="discardAction"/>
+        </hbox>
+    </layout>
+</view>

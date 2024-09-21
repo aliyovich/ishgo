@@ -1,0 +1,38 @@
+.fr-root {
+    box-shadow: 0 3px 12px -1px #1C345421;
+    padding: 14px 18px;
+    border-radius: 10px;
+    align-items: center;
+    gap: 20px;
+}
+
+.fr-logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+
+.fr-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fr-name {
+    font-weight: bold;
+}
+
+.fr-more {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.fr-date {
+    width: max-content;
+}
+
+.fr-favorite {
+    cursor: pointer;
+}

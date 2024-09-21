@@ -1,0 +1,76 @@
+#filterBox {
+    background-color: #013437;
+    color: white;
+}
+
+#vacancyDetail {
+    background-color: #F5F5F5;
+}
+
+#localeField {
+    width: 80px;
+}
+
+#localeField vaadin-select-value-button {
+    color: white;
+}
+
+#logo {
+    height: 40px;
+}
+
+.filter-tab {
+    padding: 10px;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.selected-tab {
+    background-color: white;
+    color: #013437;
+}
+
+#loginBtn, #logoutBtn {
+    color: white;
+}
+
+.vacancy {
+    width: 100%;
+    cursor: pointer;
+}
+
+#vacancyPosition {
+    color: #013437;
+    margin-bottom: 20px;
+}
+
+.vacancy-comps {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.vacancy-comp {
+    width: 100%;
+    font-size: 14px;
+    display: flex;
+    gap: 8px;
+}
+
+#vacancyMain {
+    height: 50vh;
+    overflow-y: auto;
+}
+
+#vacancyMain::-webkit-scrollbar {
+    display: none;
+}
+
+#vacancyMain {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#applyBtn {
+    background-color: #013437;
+}
