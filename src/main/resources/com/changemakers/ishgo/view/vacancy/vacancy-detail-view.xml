@@ -61,7 +61,6 @@
             <responsiveSteps>
                 <responsiveStep minWidth="0" columns="1"/>
             </responsiveSteps>
-            <textField id="codeField" property="code"/>
             <textField id="positionField" property="position"/>
             <richTextEditor id="requirementField" height="9.5em" property="requirement"/>
             <entityComboBox id="categoryField" property="category" itemsContainer="categoriesDc">

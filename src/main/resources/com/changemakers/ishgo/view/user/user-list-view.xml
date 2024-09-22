@@ -33,7 +33,7 @@
         </urlQueryParameters>
     </facets>
     <layout>
-        <genericFilter id="genericFilter"
+        <genericFilter id="genericFilter" opened="false"
                        dataLoader="usersDl">
             <properties include=".*"/>
         </genericFilter>

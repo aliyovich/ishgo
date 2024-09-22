@@ -1,19 +1,25 @@
 package com.changemakers.ishgo.view.candidate.applied;
 
+import com.changemakers.ishgo.entity.User;
 import com.changemakers.ishgo.entity.candidate.AppliedCandidate;
 import com.changemakers.ishgo.entity.candidate.ApplyStatus;
+import com.changemakers.ishgo.service.UserService;
 import com.changemakers.ishgo.view.main.MainView;
+import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.router.Route;
 import io.jmix.core.DataManager;
 import io.jmix.core.Messages;
 import io.jmix.flowui.Dialogs;
 import io.jmix.flowui.action.DialogAction;
 import io.jmix.flowui.component.grid.DataGrid;
+import io.jmix.flowui.component.tabsheet.JmixTabSheet;
 import io.jmix.flowui.kit.action.ActionPerformedEvent;
 import io.jmix.flowui.kit.action.ActionVariant;
 import io.jmix.flowui.model.CollectionLoader;
 import io.jmix.flowui.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Objects;
 
 
 @Route(value = "appliedCandidates", layout = MainView.class)
@@ -29,6 +35,8 @@ public class AppliedCandidateListView extends StandardListView<AppliedCandidate>
     private DataManager dataManager;
     @Autowired
     private Messages messages;
+    @Autowired
+    private UserService userService;
 
     @ViewComponent
     private MessageBundle messageBundle;
@@ -36,6 +44,37 @@ public class AppliedCandidateListView extends StandardListView<AppliedCandidate>
     private DataGrid<AppliedCandidate> appliedCandidatesDataGrid;
     @ViewComponent
     private CollectionLoader<AppliedCandidate> appliedCandidatesDl;
+
+    @ViewComponent("tabSheet.rejectTab")
+    private Tab tabSheetRejectTab;
+    @ViewComponent("tabSheet.acceptTab")
+    private Tab tabSheetAcceptTab;
+    @ViewComponent("tabSheet.newTab")
+    private Tab tabSheetNewTab;
+
+    @Subscribe
+    public void onBeforeShow(final BeforeShowEvent event) {
+        User user = userService.currentUser();
+        if (user == null) return;
+
+        appliedCandidatesDl.setParameter("company", user.getCompany());
+        appliedCandidatesDl.setParameter("status", ApplyStatus.NEW);
+        appliedCandidatesDl.load();
+    }
+
+    @Subscribe("tabSheet")
+    public void onTabSheetSelectedChange(final JmixTabSheet.SelectedChangeEvent event) {
+        if (Objects.equals(event.getSelectedTab(), tabSheetRejectTab)) {
+            appliedCandidatesDl.setParameter("status", ApplyStatus.REJECTED);
+        } else if (Objects.equals(event.getSelectedTab(), tabSheetAcceptTab)) {
+            appliedCandidatesDl.setParameter("status", ApplyStatus.ACCEPTED);
+        } else if (Objects.equals(event.getSelectedTab(), tabSheetNewTab)) {
+            appliedCandidatesDl.setParameter("status", ApplyStatus.NEW);
+        } else {
+            appliedCandidatesDl.removeParameter("status");
+        }
+        appliedCandidatesDl.load();
+    }
 
     @Subscribe("appliedCandidatesDataGrid.reject")
     public void onAppliedCandidatesDataGridReject(final ActionPerformedEvent event) {

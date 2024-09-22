@@ -13,6 +13,16 @@
             <loader id="appliedCandidatesDl" readOnly="true">
                 <query>
                     <![CDATA[select e from AppliedCandidate e order by e.createdDate desc]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.vacancy.company=:company</c:where>
+                            </c:jpql>
+                            <c:jpql>
+                                <c:where>e.status=:status</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -29,7 +39,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
+        <genericFilter id="genericFilter" opened="false"
                        dataLoader="appliedCandidatesDl">
             <properties include=".*"/>
         </genericFilter>
@@ -39,24 +49,68 @@
             <button id="acceptBtn" action="appliedCandidatesDataGrid.accept" themeNames="success"/>
             <simplePagination id="pagination" dataLoader="appliedCandidatesDl"/>
         </hbox>
-        <dataGrid id="appliedCandidatesDataGrid"
-                  width="100%"
-                  minHeight="20em"
-                  dataContainer="appliedCandidatesDc"
-                  columnReorderingAllowed="true"
-                  selectionMode="MULTI">
-            <actions>
-                <action id="accept" type="list_itemTracking" text="msg://accept" icon="CHECK"/>
-                <action id="reject" type="list_itemTracking" text="msg://reject" icon="CLOSE"/>
-                <action id="refresh" type="list_refresh"/>
-            </actions>
-            <columns resizable="true">
-                <column property="candidate"/>
-                <column property="vacancy"/>
-                <column property="status"/>
-                <column property="createdDate"/>
-            </columns>
-        </dataGrid>
+        <tabSheet id="tabSheet" width="100%">
+            <tab id="newTab" label="New">
+                <dataGrid id="appliedCandidatesDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="appliedCandidatesDc"
+                          columnReorderingAllowed="true"
+                          selectionMode="MULTI">
+                    <actions>
+                        <action id="accept" type="list_itemTracking" text="msg://accept" icon="CHECK"/>
+                        <action id="reject" type="list_itemTracking" text="msg://reject" icon="CLOSE"/>
+                        <action id="refresh" type="list_refresh"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="candidate"/>
+                        <column property="vacancy"/>
+                        <column property="status"/>
+                        <column property="createdDate"/>
+                    </columns>
+                </dataGrid>
+            </tab>
+            <tab id="acceptTab" label="Accepted">
+                <dataGrid id="newAcceptedAppliedCandidatesDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="appliedCandidatesDc"
+                          columnReorderingAllowed="true"
+                          selectionMode="MULTI">
+                    <actions>
+                        <action id="accept" type="list_itemTracking" text="msg://accept" icon="CHECK"/>
+                        <action id="reject" type="list_itemTracking" text="msg://reject" icon="CLOSE"/>
+                        <action id="refresh" type="list_refresh"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="candidate"/>
+                        <column property="vacancy"/>
+                        <column property="status"/>
+                        <column property="createdDate"/>
+                    </columns>
+                </dataGrid>
+            </tab>
+            <tab id="rejectTab" label="Rejected">
+                <dataGrid id="rejectedAppliedCandidatesDataGrid"
+                          width="100%"
+                          minHeight="20em"
+                          dataContainer="appliedCandidatesDc"
+                          columnReorderingAllowed="true"
+                          selectionMode="MULTI">
+                    <actions>
+                        <action id="accept" type="list_itemTracking" text="msg://accept" icon="CHECK"/>
+                        <action id="reject" type="list_itemTracking" text="msg://reject" icon="CLOSE"/>
+                        <action id="refresh" type="list_refresh"/>
+                    </actions>
+                    <columns resizable="true">
+                        <column property="candidate"/>
+                        <column property="vacancy"/>
+                        <column property="status"/>
+                        <column property="createdDate"/>
+                    </columns>
+                </dataGrid>
+            </tab>
+        </tabSheet>
         <hbox id="lookupActions" visible="false">
             <button id="selectBtn" action="selectAction"/>
             <button id="discardBtn" action="discardAction"/>

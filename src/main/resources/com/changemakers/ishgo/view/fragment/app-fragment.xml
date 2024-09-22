@@ -2,7 +2,7 @@
 <fragment xmlns="http://jmix.io/schema/flowui/fragment">
     <content>
         <hbox id="root" classNames="fr-root" width="100%">
-            <image id="logo" classNames="fr-logo"/>
+            <image id="logo" classNames="fr-logo" themeNames="cover"/>
             <div id="main" width="100%" classNames="fr-main">
                 <span id="name" classNames="fr-name"/>
                 <span id="about" classNames="fr-about"/>

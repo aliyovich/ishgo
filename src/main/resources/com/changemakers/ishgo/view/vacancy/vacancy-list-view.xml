@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
+      xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
       title="msg://vacancyListView.title"
       focusComponent="vacanciesDataGrid">
     <data>
@@ -14,6 +15,13 @@
             <loader id="vacanciesDl" readOnly="true">
                 <query>
                     <![CDATA[select e from Vacancy e order by e.createdDate desc]]>
+                    <condition>
+                        <and>
+                            <c:jpql>
+                                <c:where>e.company=:company</c:where>
+                            </c:jpql>
+                        </and>
+                    </condition>
                 </query>
             </loader>
         </collection>
@@ -30,7 +38,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
+        <genericFilter id="genericFilter" opened="false"
                        dataLoader="vacanciesDl">
             <properties include=".*"/>
         </genericFilter>
@@ -58,7 +66,6 @@
                 <action id="remove" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="code"/>
                 <column property="position"/>
                 <column property="category"/>
                 <column property="region"/>

@@ -36,7 +36,7 @@
         <action id="discardAction" type="lookup_discard"/>
     </actions>
     <layout>
-        <genericFilter id="genericFilter"
+        <genericFilter id="genericFilter" opened="false"
                        dataLoader="companiesDl">
             <properties include=".*"/>
         </genericFilter>
